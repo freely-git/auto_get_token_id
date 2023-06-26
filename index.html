@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>token获取</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            list-style: none;
+        }
+
+
+        textarea {
+            writing-mode: horizontal-tb !important;
+            resize: none;
+            cursor: text;
+            column-count: initial !important;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-align: left;
+            padding: 10px;
+            outline: none;
+        }
+
+        .box,
+        .center{
+            float: left;
+        }
+       
+
+        .box,
+        .center {
+            height: 600px;
+        }
+
+        .box {
+            width: 40%;
+        }
+
+        .center {
+            width: 15%;
+            margin: 0 10px;
+        }
+
+
+        #json,
+        #content {
+            width: 95%;
+            height: 95%;
+        }
+
+        .btn {
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            font-size: 20px;
+            border-style: none;
+            border: 1px solid;
+            text-align: center;
+
+        }
+
+        .btn:hover {
+            background-color: aqua;
+        }
+
+
+        .center {
+            position: relative;
+        }
+
+        .center div {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+        }
+
+        #btn_get {
+            margin-bottom: 10px;
+        }
+
+        #msg {
+            top: 5%;
+            /* border: 1px solid gray; */
+            padding: 5px 0;
+            border-radius: 2px;
+            width: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4)  ;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <textarea name="" id="json" autofocus></textarea>
+       
+    </div>
+    <div class="center">
+        <div id="msg" style="display: none;">复制成功</div>
+        <div>
+            <input type="button" value="获取" id="btn_get" class="btn">
+            <input type="button" value="复制数据" id="btn_copy" class="btn">
+        </div>
+    </div>
+    <div class="box">
+        <textarea name="" id="content" readonly></textarea>
+    </div>
+</body>
+<script>
+    let btn_get = document.getElementById('btn_get');
+    let btn_copy = document.getElementById('btn_copy');
+    let msg = document.getElementById('msg');
+    btn_get.onclick = () => {
+        let text = '';
+        let json = document.getElementById('json').value;
+        let obj = JSON.parse(json);
+        let content = document.getElementById('content');
+
+        if (!content.value == "") {
+            content.value = '';
+        }
+
+        console.log(obj.data);
+        for (const iterator of obj.data) {
+            text += iterator.id + "\t" + iterator.access_token + "\n";
+        }
+        console.log(text);
+        content.value = text;
+
+    }
+
+    btn_copy.onclick = () => {
+        let content = document.getElementById('content');
+        content.select();
+        document.execCommand("copy");
+
+        setTimeout(() => {
+            msg.style.display = '';
+        }, 100);
+
+        setTimeout(() => {
+            msg.style.display = 'none';
+        }, 1000);
+
+        content.value = '';   
+    }
+
+</script>
+</html>
