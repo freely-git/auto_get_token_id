@@ -80,7 +80,8 @@
             width: 100%;
         }
 
-        #btn_get {
+        #btn_get,
+        #btn_copy {
             margin-bottom: 10px;
         }
 
@@ -106,6 +107,7 @@
         <div>
             <input type="button" value="获取" id="btn_get" class="btn">
             <input type="button" value="复制数据" id="btn_copy" class="btn">
+            <input type="button" value="清空所有数据" id="btn_clear" class="btn">
         </div>
     </div>
     <div class="box">
@@ -115,24 +117,22 @@
 <script>
     let btn_get = document.getElementById('btn_get');
     let btn_copy = document.getElementById('btn_copy');
+    let btn_clear = document.getElementById('btn_clear');
     let msg = document.getElementById('msg');
     btn_get.onclick = () => {
-        let text = '';
         let json = document.getElementById('json').value;
-        let obj = JSON.parse(json);
         let content = document.getElementById('content');
+        let text = '';
+        let obj = JSON.parse(json);
 
         if (!content.value == "") {
             content.value = '';
         }
 
-        console.log(obj.data);
         for (const iterator of obj.data) {
             text += iterator.id + "\t" + iterator.access_token + "\n";
         }
-        console.log(text);
         content.value = text;
-
     }
 
     btn_copy.onclick = () => {
@@ -149,6 +149,14 @@
         }, 1000);
 
         content.value = '';   
+    }
+
+    btn_clear.onclick = () => {
+        let json = document.getElementById('json');
+        let content = document.getElementById('content');
+        content.value = '';
+        json.value = '';
+
     }
 
 </script>
