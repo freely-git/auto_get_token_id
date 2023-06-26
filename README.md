@@ -1,1 +1,2 @@
-"# auto_get_token_id" 
+# 这是一个获取token的页面
+演示地址：
